@@ -5,8 +5,9 @@ from datetime import datetime
 from database import get_connection
 
 
+
 # -------------------------
-# PASSWORD SECURITY
+# PASSWORD HASHING
 # -------------------------
 
 def hash_password(password):
@@ -40,16 +41,22 @@ def create_user(
             (
             username,
             password,
-            role
+            role,
+            status,
+            created_date
             )
 
-            VALUES (?,?,?)
+            VALUES (?,?,?,?,?)
             """,
 
             (
                 username,
                 hash_password(password),
-                role
+                role,
+                "Active",
+                datetime.now().strftime(
+                    "%d-%m-%Y %H:%M"
+                )
             )
         )
 
@@ -59,9 +66,11 @@ def create_user(
         return True
 
 
+
     except sqlite3.IntegrityError:
 
         return False
+
 
 
     finally:
@@ -71,7 +80,7 @@ def create_user(
 
 
 # -------------------------
-# LOGIN CHECK
+# AUTHENTICATE USER
 # -------------------------
 
 def authenticate(
@@ -84,11 +93,14 @@ def authenticate(
     cursor = connection.cursor()
 
 
+
     cursor.execute(
         """
-        SELECT username, role
+        SELECT username, role, status
+
         FROM users
-        WHERE username=? 
+
+        WHERE username=?
         AND password=?
         """,
 
@@ -105,12 +117,52 @@ def authenticate(
     connection.close()
 
 
+
     if user:
 
-        return {
-            "username": user[0],
-            "role": user[1]
-        }
+        if user[2] == "Active":
+
+            return {
+
+                "username": user[0],
+
+                "role": user[1]
+
+            }
 
 
     return None
+
+
+
+# -------------------------
+# GET USERS
+# -------------------------
+
+def get_users():
+
+    connection = get_connection()
+
+    cursor = connection.cursor()
+
+
+    cursor.execute(
+        """
+        SELECT id,
+               username,
+               role,
+               status,
+               created_date
+
+        FROM users
+        """
+    )
+
+
+    users = cursor.fetchall()
+
+
+    connection.close()
+
+
+    return users

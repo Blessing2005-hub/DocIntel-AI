@@ -1,6 +1,5 @@
 import sqlite3
 import os
-from datetime import datetime
 
 
 DATABASE_FOLDER = "database"
@@ -13,19 +12,27 @@ DATABASE_FILE = os.path.join(
 
 
 # -------------------------
-# CREATE DATABASE
+# DATABASE CONNECTION
 # -------------------------
 
 def get_connection():
 
     if not os.path.exists(DATABASE_FOLDER):
-        os.makedirs(DATABASE_FOLDER)
+
+        os.makedirs(
+            DATABASE_FOLDER
+        )
+
 
     return sqlite3.connect(
         DATABASE_FILE
     )
 
 
+
+# -------------------------
+# INITIALIZE DATABASE
+# -------------------------
 
 def initialize_database():
 
@@ -35,7 +42,7 @@ def initialize_database():
 
 
 
-    # Users table
+    # USERS TABLE
 
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS users (
@@ -46,14 +53,18 @@ def initialize_database():
 
         password TEXT,
 
-        role TEXT
+        role TEXT,
+
+        status TEXT DEFAULT 'Active',
+
+        created_date TEXT
 
     )
     """)
 
 
 
-    # Documents table
+    # DOCUMENTS TABLE
 
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS documents (
@@ -73,7 +84,7 @@ def initialize_database():
 
 
 
-    # Audit logs
+    # AUDIT LOGS TABLE
 
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS audit_logs (
@@ -97,7 +108,6 @@ def initialize_database():
 
 
 
-
 # -------------------------
 # ADD DOCUMENT
 # -------------------------
@@ -107,6 +117,9 @@ def add_document(
         username,
         path
 ):
+
+    from datetime import datetime
+
 
     connection = get_connection()
 
@@ -134,7 +147,6 @@ def add_document(
             ),
             path
         )
-
     )
 
 
@@ -163,10 +175,10 @@ def get_documents():
     )
 
 
-    data = cursor.fetchall()
+    documents = cursor.fetchall()
 
 
     connection.close()
 
 
-    return data
+    return documents
