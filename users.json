@@ -1,0 +1,50 @@
+[
+    {
+        "name": "blessing",
+        "company": "MIC",
+        "ec": "T2420124",
+        "email": "blessingbud07@gmail.com",
+        "password": "ddb81868244a93dcadc434172d4b792ae4016ab27913de51a4c3423043366a5b",
+        "role": "Employee"
+    },
+    {
+        "name": "blessing",
+        "company": "mic",
+        "ec": "T2420124",
+        "email": "blessingbud@gmail.com",
+        "password": "ddb81868244a93dcadc434172d4b792ae4016ab27913de51a4c3423043366a5b",
+        "role": "Admin"
+    },
+    {
+        "name": "bud",
+        "company": "mic",
+        "ec": "T2420123",
+        "email": "qtenbu@gmail.com",
+        "password": "0b9cbc4f5f84ad754030d03033231ffbffd41dc63bc68890939393dcb0f7b152",
+        "role": "Admin"
+    },
+    {
+        "name": "blessing",
+        "company": "",
+        "ec": "",
+        "email": "",
+        "password": "ddb81868244a93dcadc434172d4b792ae4016ab27913de51a4c3423043366a5b",
+        "role": "Admin"
+    },
+    {
+        "name": "blessing",
+        "company": "MIC",
+        "ec": "",
+        "email": "qtenbud07@gmail.com",
+        "password": "2568bcfe760ccd0cba34ff4e3f296e28b3c943f5d5004de4e93b7b75ad11317c",
+        "role": "Admin"
+    },
+    {
+        "name": "bud",
+        "company": "mic",
+        "ec": "T2420124",
+        "email": "qtenbud@gmail.com",
+        "password": "2568bcfe760ccd0cba34ff4e3f296e28b3c943f5d5004de4e93b7b75ad11317c",
+        "role": "Admin"
+    }
+]
